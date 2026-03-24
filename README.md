@@ -1,78 +1,78 @@
 # Token-Zip 🗜️
 
-利用文言文的极致表达力压缩 LLM Token，大幅降低顶尖大模型的使用成本。
+Slash your LLM costs by 40–60 % using the extreme expressiveness of Classical Chinese (文言文) to compress tokens.
 
-## 原理
+## How It Works
 
-中文（尤其是文言文）用极少的字符就能表达英语需要大量词汇才能传达的含义。Token-Zip 利用这一特性，在请求昂贵模型前先将内容"压缩"为文言文，并要求模型以文言文回复，最后再"解压"回原始语言。
+Classical Chinese can convey the same meaning as English using far fewer tokens. Token-Zip exploits this by translating your input into Classical Chinese before it reaches the expensive model, asking the model to respond in Classical Chinese as well, and then translating the response back to the original language.
 
 ```
-用户输入 (English/中文/...)
+User input (English / Chinese / ...)
     │
     ▼
-┌──────────────────┐
-│ 压缩模型 (便宜)   │  ← Kimi K2.5 / DeepSeek 等
-│ 翻译为文言文       │
-└──────────────────┘
+┌─────────────────────────┐
+│  Compression Model      │  ← Kimi K2.5 / DeepSeek / etc. (cheap & fast)
+│  Translate → Classical  │
+└─────────────────────────┘
     │
     ▼
-┌──────────────────┐
-│ 目标模型 (昂贵)   │  ← Claude Opus / GPT-5 Pro 等
-│ 以文言文处理和回复  │
-└──────────────────┘
+┌─────────────────────────┐
+│  Target Model           │  ← Claude Opus / GPT-5 Pro / etc. (expensive)
+│  Process & respond in   │
+│  Classical Chinese      │
+└─────────────────────────┘
     │
     ▼
-┌──────────────────┐
-│ 压缩模型 (便宜)   │
-│ 翻译回原始语言     │
-└──────────────────┘
+┌─────────────────────────┐
+│  Compression Model      │
+│  Translate → original   │
+└─────────────────────────┘
     │
     ▼
-用户收到原始语言回复 + 节省报告
+User receives original-language response + savings report
 ```
 
-## 快速开始
+## Quick Start
 
-### 1. 安装
+### 1. Install
 
 ```bash
-git clone <repo-url> && cd token-zip
+git clone https://github.com/code-tinker/token-zip.git && cd token-zip
 npm install
 ```
 
-### 2. 配置
-
-复制并编辑环境变量：
+### 2. Configure
 
 ```bash
 cp .env.example .env
+# edit .env with your keys and model choices
 ```
 
-主要配置项：
+Key environment variables:
 
-| 变量 | 说明 | 示例 |
-|------|------|------|
-| `COMPRESS_MODEL` | 压缩/解压用的便宜模型 | `kimi-k2.5` |
-| `COMPRESS_API_KEY` | 压缩模型 API Key | `sk-xxx` |
-| `COMPRESS_BASE_URL` | 压缩模型 API 地址 | `https://api.moonshot.cn/v1` |
-| `COMPRESS_API_TYPE` | API 类型 | `openai` |
-| `TARGET_MODEL` | 目标昂贵模型 | `claude-opus-4.6` |
-| `TARGET_API_KEY` | 目标模型 API Key | `sk-ant-xxx` |
-| `TARGET_API_TYPE` | API 类型 | `anthropic` |
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `COMPRESS_MODEL` | Cheap model for compression / decompression | `kimi-k2.5` |
+| `COMPRESS_API_KEY` | API key for the compression model | `sk-xxx` |
+| `COMPRESS_BASE_URL` | API base URL for the compression model | `https://api.moonshot.cn/v1` |
+| `COMPRESS_API_TYPE` | API protocol (`openai` or `anthropic`) | `openai` |
+| `TARGET_MODEL` | Expensive target model | `claude-opus-4.6` |
+| `TARGET_API_KEY` | API key for the target model | `sk-ant-xxx` |
+| `TARGET_API_TYPE` | API protocol | `anthropic` |
 
-### 3. 运行
+### 3. Run
 
 ```bash
-# 开发模式
+# Development
 npm run dev
 
-# 生产模式
+# Production
 npm run build && npm start
 ```
 
-### 4. 使用
+### 4. Use
 
-Token-Zip 暴露标准的 OpenAI Chat Completions API，可直接替换任何使用 OpenAI 协议的客户端：
+Token-Zip exposes a standard OpenAI Chat Completions endpoint — drop it in as a replacement for any OpenAI-compatible client:
 
 ```bash
 curl http://localhost:3000/v1/chat/completions \
@@ -84,7 +84,7 @@ curl http://localhost:3000/v1/chat/completions \
   }'
 ```
 
-流式输出：
+Streaming:
 
 ```bash
 curl http://localhost:3000/v1/chat/completions \
@@ -97,37 +97,37 @@ curl http://localhost:3000/v1/chat/completions \
   }'
 ```
 
-## 节省报告
+## Savings Report
 
-每次请求完成后，控制台会输出详细的压缩统计：
+After each request the console prints a detailed compression summary:
 
 ```
 ╔══════════════════════════════════════════╗
-║         Token-Zip 压缩统计报告           ║
+║       Token-Zip Compression Report      ║
 ╠══════════════════════════════════════════╣
-║ 输入 tokens:     520 →     198  (节省 61.92%)
-║ 输出 tokens:     830 →     295  (节省 64.46%)
-║ 压缩模型开销: 680 tokens
-║ 解压模型开销: 1125 tokens
+║ Input tokens:      520 →     198  (saved 61.92%)
+║ Output tokens:     830 →     295  (saved 64.46%)
+║ Compression overhead: 680 tokens
+║ Decompression overhead: 1125 tokens
 ╠──────────────────────────────────────────╣
-║ 原始费用: $0.023350
-║ 压缩后费用: $0.009770
-║ 💰 节省: $0.013580 (58.16%)
+║ Original cost:  $0.023350
+║ Compressed cost: $0.009770
+║ 💰 Saved: $0.013580 (58.16%)
 ╚══════════════════════════════════════════╝
 ```
 
-非流式响应中还会包含 `token_zip_stats` 字段，供程序化读取。
+Non-streaming responses also include a `token_zip_stats` field for programmatic access.
 
-## 模型定价配置
+## Model Pricing
 
-`config/pricing.json` 内置了主流模型的定价数据：
+`config/pricing.json` ships with pricing data for 20+ models:
 
 - **Anthropic**: Claude Opus 4.6/4.5, Sonnet 4.5/4, Haiku 3.5
-- **OpenAI**: GPT-5/5-Pro/5-Nano, GPT-4.1 系列, o3-pro, o4-mini
+- **OpenAI**: GPT-5/5-Pro/5-Nano, GPT-4.1 series, o3-pro, o4-mini
 - **Google**: Gemini 2.5 Pro/Flash
-- **国产模型**: Kimi K2.5, DeepSeek V3/R1, Qwen 系列, GLM-4, 豆包
+- **Chinese models**: Kimi K2.5, DeepSeek V3/R1, Qwen series, GLM-4, Doubao
 
-如需添加新模型，编辑 `config/pricing.json`：
+Add a new model by editing `config/pricing.json`:
 
 ```json
 {
@@ -141,12 +141,25 @@ curl http://localhost:3000/v1/chat/completions \
 }
 ```
 
-## 支持的 API 类型
+## Supported API Protocols
 
-| 类型 | 适用模型 | 说明 |
-|------|---------|------|
-| `openai` | Kimi, DeepSeek, Qwen, OpenAI, Gemini 等 | OpenAI 兼容协议 |
-| `anthropic` | Claude 系列 | Anthropic 原生协议 |
+| Type | Models | Notes |
+|------|--------|-------|
+| `openai` | Kimi, DeepSeek, Qwen, OpenAI, Gemini, etc. | OpenAI-compatible protocol |
+| `anthropic` | Claude series | Anthropic native protocol |
+
+## Benchmark
+
+A benchmark script is included for A/B comparison (direct call vs. Token-Zip proxy):
+
+```bash
+export DIRECT_API_KEY="your-key"
+export DIRECT_BASE_URL="https://api.anthropic.com/v1"
+export DIRECT_MODEL="claude-opus-4-6"
+
+npm run dev &       # start Token-Zip in background
+bash benchmark.sh   # run the benchmark
+```
 
 ## License
 

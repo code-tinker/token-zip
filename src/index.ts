@@ -25,12 +25,12 @@ function main() {
   app.listen(config.port, () => {
     console.log('');
     console.log('╔══════════════════════════════════════════════════╗');
-    console.log('║              🗜️  Token-Zip 已启动                ║');
+    console.log('║              🗜️  Token-Zip Started               ║');
     console.log('╠══════════════════════════════════════════════════╣');
-    console.log(`║  端口:       ${String(config.port).padEnd(36)}║`);
-    console.log(`║  压缩模型:   ${config.compress.model.padEnd(36)}║`);
-    console.log(`║  目标模型:   ${config.target.model.padEnd(36)}║`);
-    console.log(`║  汇率:       1 USD = ${config.usdCnyRate} CNY${' '.repeat(21)}║`);
+    console.log(`║  Port:            ${String(config.port).padEnd(31)}║`);
+    console.log(`║  Compress model:  ${config.compress.model.padEnd(31)}║`);
+    console.log(`║  Target model:    ${config.target.model.padEnd(31)}║`);
+    console.log(`║  Exchange rate:   1 USD = ${config.usdCnyRate} CNY${' '.repeat(16)}║`);
     console.log('╠══════════════════════════════════════════════════╣');
     console.log(`║  API: http://localhost:${config.port}/v1/chat/completions`);
     console.log('╚══════════════════════════════════════════════════╝');
@@ -39,14 +39,14 @@ function main() {
     const targetPricing = pricing.findModel(config.target.model);
     const compressPricing = pricing.findModel(config.compress.model);
     if (targetPricing) {
-      console.log(`  目标模型定价: ${targetPricing.inputPricePerMTok} ${targetPricing.currency}/MTok (输入) | ${targetPricing.outputPricePerMTok} ${targetPricing.currency}/MTok (输出)`);
+      console.log(`  Target pricing: ${targetPricing.inputPricePerMTok} ${targetPricing.currency}/MTok (input) | ${targetPricing.outputPricePerMTok} ${targetPricing.currency}/MTok (output)`);
     } else {
-      console.log(`  ⚠ 目标模型 "${config.target.model}" 未在定价表中找到，费用计算不可用`);
+      console.log(`  Warning: Target model "${config.target.model}" not found in pricing table, cost calculation unavailable`);
     }
     if (compressPricing) {
-      console.log(`  压缩模型定价: ${compressPricing.inputPricePerMTok} ${compressPricing.currency}/MTok (输入) | ${compressPricing.outputPricePerMTok} ${compressPricing.currency}/MTok (输出)`);
+      console.log(`  Compress pricing: ${compressPricing.inputPricePerMTok} ${compressPricing.currency}/MTok (input) | ${compressPricing.outputPricePerMTok} ${compressPricing.currency}/MTok (output)`);
     } else {
-      console.log(`  ⚠ 压缩模型 "${config.compress.model}" 未在定价表中找到`);
+      console.log(`  Warning: Compress model "${config.compress.model}" not found in pricing table`);
     }
     console.log('');
   });

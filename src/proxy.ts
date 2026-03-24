@@ -59,9 +59,9 @@ export class TokenZipProxy {
   ): Promise<ProxyResult> {
     const totalStart = Date.now();
     console.log(`\n[token-zip] ${'='.repeat(60)}`);
-    console.log(`[token-zip] 新请求 | ${messages.length} 条消息`);
+    console.log(`[token-zip] New request | ${messages.length} message(s)`);
     console.log(`[token-zip] ${'='.repeat(60)}`);
-    console.log(`[token-zip] 📥 原始输入:`);
+    console.log(`[token-zip] Original input:`);
     for (const m of messages) {
       const preview = m.content.length > 200 ? m.content.slice(0, 200) + '...' : m.content;
       console.log(`[token-zip]   [${m.role}] ${preview}`);
@@ -71,8 +71,8 @@ export class TokenZipProxy {
     const t1 = Date.now();
     const { compressedMessages, usage: compressUsage } = await this.compress(messages);
     const t1End = Date.now();
-    console.log(`\n[token-zip] ── Step 1/3 压缩 ── ${t1End - t1}ms | API: ${compressUsage.inputTokens} in / ${compressUsage.outputTokens} out`);
-    console.log(`[token-zip] 📦 压缩结果:`);
+    console.log(`\n[token-zip] ── Step 1/3 Compress ── ${t1End - t1}ms | API: ${compressUsage.inputTokens} in / ${compressUsage.outputTokens} out`);
+    console.log(`[token-zip] Compressed result:`);
     for (const m of compressedMessages) {
       const preview = m.content.length > 300 ? m.content.slice(0, 300) + '...' : m.content;
       console.log(`[token-zip]   [${m.role}] ${preview}`);
@@ -83,10 +83,10 @@ export class TokenZipProxy {
     const targetMessages = injectTargetSystemPrompt(compressedMessages);
     const targetResponse = await this.targetClient.chat(targetMessages, options);
     const t2End = Date.now();
-    console.log(`\n[token-zip] ── Step 2/3 目标模型 ── ${t2End - t2}ms | ${targetResponse.usage.inputTokens} in / ${targetResponse.usage.outputTokens} out`);
-    console.log(`[token-zip] 📜 文言文回复 (前500字):`);
+    console.log(`\n[token-zip] ── Step 2/3 Target model ── ${t2End - t2}ms | ${targetResponse.usage.inputTokens} in / ${targetResponse.usage.outputTokens} out`);
+    console.log(`[token-zip] Classical Chinese response (first 500 chars):`);
     console.log(targetResponse.content.slice(0, 500));
-    if (targetResponse.content.length > 500) console.log('  ...(省略)');
+    if (targetResponse.content.length > 500) console.log('  ...(truncated)');
 
     // Step 3: Decompress
     const t3 = Date.now();
@@ -95,11 +95,11 @@ export class TokenZipProxy {
       targetResponse.content,
     );
     const t3End = Date.now();
-    console.log(`\n[token-zip] ── Step 3/3 解压缩 ── ${t3End - t3}ms | ${decompressUsage.inputTokens} in / ${decompressUsage.outputTokens} out`);
-    console.log(`[token-zip] 📤 最终回复 (前500字):`);
+    console.log(`\n[token-zip] ── Step 3/3 Decompress ── ${t3End - t3}ms | ${decompressUsage.inputTokens} in / ${decompressUsage.outputTokens} out`);
+    console.log(`[token-zip] Final response (first 500 chars):`);
     console.log(decompressed.slice(0, 500));
-    if (decompressed.length > 500) console.log('  ...(省略)');
-    console.log(`\n[token-zip] ⏱ 总耗时: ${t3End - totalStart}ms`);
+    if (decompressed.length > 500) console.log('  ...(truncated)');
+    console.log(`\n[token-zip] Total time: ${t3End - totalStart}ms`);
 
     // Estimate original tokens on the target model using char-to-token ratio
     // derived from the target model's own response (most accurate available proxy)
@@ -241,21 +241,21 @@ export class TokenZipProxy {
 
   private logStats(stats: TokenZipStats): void {
     console.log('\n╔══════════════════════════════════════════╗');
-    console.log('║         Token-Zip 压缩统计报告           ║');
+    console.log('║       Token-Zip Compression Report      ║');
     console.log('╠══════════════════════════════════════════╣');
-    console.log(`║ 输入 tokens: ${String(stats.originalInputTokens).padStart(7)} → ${String(stats.compressedInputTokens).padStart(7)}  (节省 ${stats.inputCompressionRatio}%)`);
-    console.log(`║ 输出 tokens: ${String(stats.originalOutputTokens).padStart(7)} → ${String(stats.compressedOutputTokens).padStart(7)}  (节省 ${stats.outputCompressionRatio}%)`);
-    console.log(`║ 压缩模型开销: ${stats.compressionModelUsage.inputTokens + stats.compressionModelUsage.outputTokens} tokens`);
-    console.log(`║ 解压模型开销: ${stats.decompressionModelUsage.inputTokens + stats.decompressionModelUsage.outputTokens} tokens`);
+    console.log(`║ Input tokens:  ${String(stats.originalInputTokens).padStart(7)} → ${String(stats.compressedInputTokens).padStart(7)}  (saved ${stats.inputCompressionRatio}%)`);
+    console.log(`║ Output tokens: ${String(stats.originalOutputTokens).padStart(7)} → ${String(stats.compressedOutputTokens).padStart(7)}  (saved ${stats.outputCompressionRatio}%)`);
+    console.log(`║ Compression overhead: ${stats.compressionModelUsage.inputTokens + stats.compressionModelUsage.outputTokens} tokens`);
+    console.log(`║ Decompression overhead: ${stats.decompressionModelUsage.inputTokens + stats.decompressionModelUsage.outputTokens} tokens`);
 
     if (stats.savings) {
       console.log('╠──────────────────────────────────────────╣');
       const { costWithoutZip, costWithZip, savings } = stats;
       if (costWithoutZip && costWithZip) {
-        console.log(`║ 原始费用: $${costWithoutZip.amountUSD.toFixed(6)}`);
-        console.log(`║ 压缩后费用: $${costWithZip.amountUSD.toFixed(6)}`);
+        console.log(`║ Original cost:   $${costWithoutZip.amountUSD.toFixed(6)}`);
+        console.log(`║ Compressed cost: $${costWithZip.amountUSD.toFixed(6)}`);
       }
-      console.log(`║ 💰 节省: $${savings.amountUSD.toFixed(6)} (${savings.percentage}%)`);
+      console.log(`║ Saved: $${savings.amountUSD.toFixed(6)} (${savings.percentage}%)`);
     }
     console.log('╚══════════════════════════════════════════╝\n');
   }

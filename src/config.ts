@@ -41,7 +41,7 @@ export function loadAppConfig(): AppConfig {
 export function loadPricingConfig(): PricingConfig {
   const pricingPath = path.resolve(__dirname, '../config/pricing.json');
   if (!fs.existsSync(pricingPath)) {
-    console.warn('[token-zip] pricing.json not found, cost calculation disabled');
+    console.warn('[token-zip] pricing.json not found, cost calculation will be disabled');
     return { exchangeRates: { USD_CNY: 7.25 }, models: {} };
   }
   return JSON.parse(fs.readFileSync(pricingPath, 'utf-8'));
