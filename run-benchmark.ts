@@ -1,10 +1,16 @@
 import OpenAI from 'openai';
 
-const TOKEN_ZIP_URL = 'http://localhost:3000/v1/chat/completions';
-const DIRECT_BASE_URL = process.env.DIRECT_BASE_URL || 'REDACTED_BASE_URL';
-const DIRECT_API_KEY = process.env.DIRECT_API_KEY || 'REDACTED_API_KEY';
+const TOKEN_ZIP_URL = process.env.TOKEN_ZIP_URL || 'http://localhost:3000/v1/chat/completions';
+const DIRECT_BASE_URL = process.env.DIRECT_BASE_URL || '';
+const DIRECT_API_KEY = process.env.DIRECT_API_KEY || '';
 const DIRECT_MODEL = process.env.DIRECT_MODEL || 'claude-opus-4-6';
 const CONCURRENCY = parseInt(process.env.CONCURRENCY || '3', 10);
+
+if (!DIRECT_BASE_URL || !DIRECT_API_KEY) {
+  console.error('Error: DIRECT_BASE_URL and DIRECT_API_KEY environment variables are required.');
+  console.error('Example: DIRECT_BASE_URL=https://api.anthropic.com/v1 DIRECT_API_KEY=sk-xxx npx tsx run-benchmark.ts');
+  process.exit(1);
+}
 
 interface TestCase {
   name: string;
