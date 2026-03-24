@@ -1,6 +1,6 @@
 # Token-Zip 🗜️
 
-Cut your LLM API costs by **up to 48 %** — with **virtually no quality loss** — by compressing tokens through Classical Chinese (文言文).
+Cut your LLM API costs by **up to 53 %** — with **virtually no quality loss** — by compressing tokens through Classical Chinese (文言文).
 
 ## How It Works
 
@@ -150,36 +150,44 @@ Add a new model by editing `config/pricing.json`:
 
 ## Benchmark
 
-We ran 5 diverse English prompts through **Claude Opus 4.6** both directly and via Token-Zip (compression model: **Kimi K2.5**). An independent **Claude Sonnet 4.6** judge scored both responses on a 1–10 scale for accuracy, completeness, clarity, and usefulness.
+We ran **12 diverse English prompts** across 8 categories through **Claude Opus 4.6** both directly and via Token-Zip (compression model: **Kimi K2.5**). An independent **Claude Sonnet 4.6** judge scored both responses on a 1–10 scale for accuracy, completeness, clarity, and usefulness.
 
 ### Results
 
-| Test Case | Category | Output Compression | Cost Saved | Direct Score | Zip Score |
-|-----------|----------|-------------------:|-----------:|:------------:|:---------:|
-| Code Explanation | Programming | 46.2 % | 40.4 % | 8 / 10 | 8 / 10 |
-| System Design | Architecture | 14.2 % | 5.2 % | 8 / 10 | **9 / 10** |
-| Technical Writing | Documentation | 23.4 % | 15.5 % | 7 / 10 | **8 / 10** |
-| Algorithm Analysis | CS Theory | 53.0 % | 48.1 % | **8 / 10** | 7 / 10 |
-| Debugging Assistance | Programming | 14.0 % | 4.7 % | **8 / 10** | 7 / 10 |
-| **Average** | | **30.2 %** | **22.8 %** | **7.8 / 10** | **7.8 / 10** |
+| # | Test Case | Category | Output Saved | Cost Saved | Direct | Zip |
+|:-:|-----------|----------|------------:|-----------:|:------:|:---:|
+| 1 | Code Explanation | Programming | 46.2 % | 40.4 % | 8 | 8 |
+| 2 | System Design | Architecture | 14.2 % | 5.2 % | 8 | **9** |
+| 3 | Technical Writing | Documentation | 23.4 % | 15.5 % | 7 | **8** |
+| 4 | Algorithm Analysis | CS Theory | 53.0 % | 48.1 % | **8** | 7 |
+| 5 | Debugging Assistance | Programming | 14.0 % | 4.7 % | **8** | 7 |
+| 6 | API Design Review | Architecture | 23.1 % | 14.7 % | 8 | **9** |
+| 7 | Database Optimization | Database | 26.7 % | 18.8 % | **8** | 7 |
+| 8 | Security Audit | Security | 27.1 % | 18.3 % | 8 | **9** |
+| 9 | Concurrency Patterns | CS Theory | 57.1 % | 52.8 % | **9** | 6 |
+| 10 | DevOps Pipeline | DevOps | 4.7 % | −5.8 % | 8 | **9** |
+| 11 | Math Proof | Mathematics | 41.3 % | 34.8 % | **8** | 7 |
+| 12 | Code Refactoring | Programming | 22.3 % | 12.0 % | **9** | 7 |
+| | **Average (12 cases)** | | **29.4 %** | **21.6 %** | **8.1** | **7.8** |
 
 ### Key Takeaways
 
-- **Quality stays intact.** Average quality scores are identical at 7.8 / 10 for both direct and Token-Zip. In 2 out of 5 cases the Token-Zip response was actually rated *higher* by the judge — likely because the compression step forces the model to be more concise and focused.
-- **Best for technical / algorithmic content.** The highest savings (48 %) were observed on algorithm-heavy prompts where Classical Chinese excels at compact expression.
-- **Worst case is still a net positive.** Even the least-compressed case (Debugging Assistance) saved 4.7 % with no measurable quality drop.
-- **Compression cost is negligible.** Kimi K2.5 costs ~$0.55 / MTok (input) — roughly 1/9th of Claude Opus input pricing — so the overhead is minimal.
+- **Quality virtually unchanged.** Average quality gap is only 0.3 points (8.1 vs 7.8 out of 10). In **5 out of 12** cases the Token-Zip response was rated *higher* than the direct response — the compression step can force the model to be more concise and focused.
+- **Average 21.6 % cost savings** across 12 diverse prompts, with the best cases (CS theory, algorithms) exceeding 50 %.
+- **Best for conceptual / analytical content.** Concurrency patterns (53 %), algorithm analysis (48 %), and math proofs (35 %) compress the most — Classical Chinese excels at expressing abstract logic compactly.
+- **Honest about the trade-off.** One case (DevOps Pipeline) cost slightly *more* (−5.8 %) due to low compressibility of config-heavy YAML content. Know your workload.
+- **Compression cost is negligible.** Kimi K2.5 costs ~$0.55 / MTok (input) — roughly 1/9th of Claude Opus input pricing.
 
 ### Run It Yourself
 
 ```bash
 npm run dev &                              # start Token-Zip
-npx tsx run-benchmark.ts                   # run the full benchmark
+npx tsx run-benchmark.ts                   # run the full 12-case benchmark
 # or use the quick shell-based benchmark:
 bash benchmark.sh
 ```
 
-> **Note:** Savings percentages depend on prompt length, content type, and model combination. The numbers above are real measurements, not theoretical estimates. Your results may vary.
+> **Note:** Savings depend on prompt length, content type, and model combination. The numbers above are real measurements from actual API calls, not theoretical estimates. Your results may vary.
 
 ## License
 

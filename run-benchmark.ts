@@ -82,6 +82,87 @@ What systematic approach would you use to identify and fix this leak? Cover tool
       },
     ],
   },
+  {
+    name: 'API Design Review',
+    category: 'Architecture',
+    messages: [
+      {
+        role: 'user',
+        content:
+          'Review and critique the following REST API design for a social media platform. Suggest improvements following best practices:\n\nPOST /createUser\nGET /getUser?id=123\nPOST /updateUser\nDELETE /removeUser?id=123\nGET /getUserPosts?userId=123&page=1\nPOST /createPost\nPOST /likePost\nGET /getComments?postId=456\n\nCover naming conventions, HTTP method usage, error handling, pagination, versioning, authentication, and rate limiting. Provide the corrected API design.',
+      },
+    ],
+  },
+  {
+    name: 'Database Optimization',
+    category: 'Database',
+    messages: [
+      {
+        role: 'system',
+        content: 'You are a database performance consultant specializing in PostgreSQL.',
+      },
+      {
+        role: 'user',
+        content:
+          'Our PostgreSQL database serving an e-commerce platform has become slow. The orders table has 500 million rows. Common queries include: finding orders by customer_id (last 30 days), aggregating daily revenue, searching orders by status with date range, and joining orders with order_items for invoice generation. Explain your optimization strategy including indexing, partitioning, query rewriting, materialized views, and connection pooling configuration.',
+      },
+    ],
+  },
+  {
+    name: 'Security Audit',
+    category: 'Security',
+    messages: [
+      {
+        role: 'user',
+        content:
+          'Perform a security audit of this Node.js Express authentication middleware and identify all vulnerabilities:\n\n```javascript\napp.post("/login", (req, res) => {\n  const { username, password } = req.body;\n  const user = db.query(`SELECT * FROM users WHERE username = \'${username}\'`);\n  if (user && user.password === password) {\n    const token = jwt.sign({ id: user.id, role: user.role }, "my-secret-key");\n    res.cookie("token", token);\n    res.json({ success: true, token });\n  } else {\n    res.json({ success: false, message: "Invalid credentials" });\n  }\n});\n\napp.use((req, res, next) => {\n  const token = req.cookies.token || req.headers.authorization;\n  if (token) {\n    const decoded = jwt.verify(token, "my-secret-key");\n    req.user = decoded;\n  }\n  next();\n});\n```\n\nList each vulnerability, explain the risk, and provide the corrected code.',
+      },
+    ],
+  },
+  {
+    name: 'Concurrency Patterns',
+    category: 'CS Theory',
+    messages: [
+      {
+        role: 'user',
+        content:
+          'Explain the major concurrency patterns used in modern software: mutexes, semaphores, read-write locks, channels (CSP), actor model, and software transactional memory. For each pattern, describe the mechanism, provide a use case, discuss pros/cons, and show which languages/frameworks favor it. Finally, compare them in a table and recommend which to use for: a web server, a game engine, a data pipeline, and a GUI application.',
+      },
+    ],
+  },
+  {
+    name: 'DevOps Pipeline',
+    category: 'DevOps',
+    messages: [
+      {
+        role: 'user',
+        content:
+          'Design a complete CI/CD pipeline for a microservices application with 12 services. The stack includes: React frontend, 8 Go microservices, 2 Python ML services, and 1 Rust high-performance service. Cover: Git branching strategy, build stages, testing (unit/integration/e2e), container image building, security scanning, staging deployment, canary releases to production, rollback strategy, and monitoring/alerting. Include a sample GitHub Actions workflow.',
+      },
+    ],
+  },
+  {
+    name: 'Math Proof',
+    category: 'Mathematics',
+    messages: [
+      {
+        role: 'user',
+        content:
+          'Prove that the harmonic series diverges using at least three different methods. For each proof, explain the intuition, provide the formal argument, and discuss the historical significance. Then explain the connection between the harmonic series and the natural logarithm, and derive the approximation H_n ≈ ln(n) + γ where γ is the Euler-Mascheroni constant.',
+      },
+    ],
+  },
+  {
+    name: 'Code Refactoring',
+    category: 'Programming',
+    messages: [
+      {
+        role: 'user',
+        content:
+          'Refactor this messy JavaScript function into clean, maintainable TypeScript. Apply SOLID principles, add proper error handling, and split into smaller functions:\n\n```javascript\nfunction processOrder(order, user, inventory, mailer, logger) {\n  if (!order) return { error: "no order" };\n  if (!user) return { error: "no user" };\n  let total = 0;\n  for (let i = 0; i < order.items.length; i++) {\n    let item = order.items[i];\n    let stock = inventory.check(item.productId);\n    if (stock < item.quantity) {\n      return { error: "out of stock: " + item.productId };\n    }\n    if (item.discount) {\n      total += item.price * item.quantity * (1 - item.discount / 100);\n    } else {\n      total += item.price * item.quantity;\n    }\n  }\n  if (user.membership === "gold") total *= 0.9;\n  if (user.membership === "platinum") total *= 0.85;\n  if (order.coupon) {\n    let coupon = db.getCoupon(order.coupon);\n    if (coupon && coupon.valid && coupon.minOrder <= total) {\n      total -= coupon.amount;\n    }\n  }\n  let tax = total * 0.08;\n  total += tax;\n  for (let i = 0; i < order.items.length; i++) {\n    inventory.reduce(order.items[i].productId, order.items[i].quantity);\n  }\n  let result = db.saveOrder({ userId: user.id, items: order.items, total: total, tax: tax, status: "confirmed" });\n  mailer.send(user.email, "Order Confirmed", "Your order #" + result.id + " total: $" + total.toFixed(2));\n  logger.info("Order processed", { orderId: result.id, userId: user.id, total: total });\n  return { success: true, orderId: result.id, total: total };\n}\n```\n\nExplain each refactoring decision.',
+      },
+    ],
+  },
 ];
 
 const directClient = new OpenAI({
