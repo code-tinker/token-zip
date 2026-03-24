@@ -1,6 +1,6 @@
 # Token-Zip 🗜️
 
-Cut your LLM API costs by **up to 53 %** — with **virtually no quality loss in most scenarios** — by compressing tokens through Classical Chinese (文言文).
+Cut your LLM API costs by **up to 72 %** — with **virtually no quality loss in most scenarios** — by compressing tokens through Classical Chinese (文言文).
 
 ![Token-Zip Architecture](index.png)
 
@@ -152,44 +152,59 @@ Add a new model by editing `config/pricing.json`:
 
 ## Benchmark
 
-We ran **12 diverse English prompts** across 8 categories through **Claude Opus 4.6** both directly and via Token-Zip (compression model: **Kimi K2.5**). An independent **Claude Sonnet 4.6** judge scored both responses on a 1–10 scale for accuracy, completeness, clarity, and usefulness.
+We ran **55 diverse English prompts** across **15 categories** through **Claude Opus 4.6** both directly and via Token-Zip (compression model: **Kimi K2.5**). An independent **Claude Sonnet 4.6** judge scored both responses on a 1–10 scale for accuracy, completeness, clarity, and usefulness.
 
-### Results
+### Results by Category
 
-| # | Test Case | Category | Output Saved | Cost Saved | Direct | Zip |
-|:-:|-----------|----------|------------:|-----------:|:------:|:---:|
-| 1 | Code Explanation | Programming | 46.2 % | 40.4 % | 8 | 8 |
-| 2 | System Design | Architecture | 14.2 % | 5.2 % | 8 | **9** |
-| 3 | Technical Writing | Documentation | 23.4 % | 15.5 % | 7 | **8** |
-| 4 | Algorithm Analysis | CS Theory | 53.0 % | 48.1 % | **8** | 7 |
-| 5 | Debugging Assistance | Programming | 14.0 % | 4.7 % | **8** | 7 |
-| 6 | API Design Review | Architecture | 23.1 % | 14.7 % | 8 | **9** |
-| 7 | Database Optimization | Database | 26.7 % | 18.8 % | **8** | 7 |
-| 8 | Security Audit | Security | 27.1 % | 18.3 % | 8 | **9** |
-| 9 | Concurrency Patterns | CS Theory | 57.1 % | 52.8 % | **9** | 6 |
-| 10 | DevOps Pipeline | DevOps | 4.7 % | −5.8 % | 8 | **9** |
-| 11 | Math Proof | Mathematics | 41.3 % | 34.8 % | **8** | 7 |
-| 12 | Code Refactoring | Programming | 22.3 % | 12.0 % | **9** | 7 |
-| | **Average (12 cases)** | | **29.4 %** | **21.6 %** | **8.1** | **7.8** |
+| Category | Cases | Avg Cost Saved | Direct Score | Zip Score |
+|----------|------:|---------------:|:------------:|:---------:|
+| Programming | 5 | 27.6 % | 7.2 | **8.0** |
+| Architecture | 3 | 21.7 % | 7.3 | 7.3 |
+| DevOps | 1 | −4.6 % | 7.0 | **8.0** |
+| Business & Strategy | 6 | 51.5 % | **8.0** | 7.0 |
+| Finance & Economics | 5 | 45.5 % | 7.0 | **7.6** |
+| Science & Technology | 5 | 56.0 % | 6.8 | **7.8** |
+| Education & Learning | 4 | 59.7 % | **8.3** | 7.0 |
+| Healthcare & Medicine | 4 | 57.4 % | 7.3 | **8.0** |
+| Law & Policy | 4 | 59.8 % | 7.3 | **8.3** |
+| Marketing & Communications | 4 | 50.9 % | 7.5 | 7.3 |
+| Philosophy & Ethics | 3 | 65.5 % | 6.7 | **7.3** |
+| History & Social Science | 4 | 64.6 % | 7.3 | 6.8 |
+| Creative & Writing | 4 | 53.6 % | 7.0 | **7.8** |
+| Mathematics & CS Theory | 3 | 50.6 % | 7.0 | **8.0** |
+| **Overall (55 cases)** | **55** | **49.9 %** | **7.3** | **7.6** |
+
+### Top 10 Highest Savings
+
+| Test Case | Category | Cost Saved | Direct | Zip |
+|-----------|----------|------------|:------:|:---:|
+| Employment Law | Law | 72.4 % | 7 | 6 |
+| Cold War Analysis | History | 71.9 % | 6 | **7** |
+| Teaching Philosophy | Education | 67.5 % | 7 | **8** |
+| Learning Science | Education | 66.3 % | 9 | 7 |
+| Ethics of AI | Philosophy | 70.3 % | 7 | **8** |
+| Justice Theory | Philosophy | 65.1 % | 7 | 6 |
+| Industrial Revolution | History | 65.8 % | **8** | 6 |
+| Neuroscience of Memory | Science | 63.3 % | 6 | **8** |
+| Urbanization Trends | Social Science | 62.8 % | **8** | 6 |
+| Product Launch Plan | Marketing | 61.1 % | **8** | 7 |
 
 ### Key Takeaways
 
-- **Quality virtually unchanged.** Average quality gap is only 0.3 points (8.1 vs 7.8 out of 10). In **5 out of 12** cases the Token-Zip response was rated *higher* than the direct response — the compression step can force the model to be more concise and focused.
-- **Average 21.6 % cost savings** across 12 diverse prompts, with the best cases (CS theory, algorithms) exceeding 50 %.
-- **Best for conceptual / analytical content.** Concurrency patterns (53 %), algorithm analysis (48 %), and math proofs (35 %) compress the most — Classical Chinese excels at expressing abstract logic compactly.
-- **Honest about the trade-off.** One case (DevOps Pipeline) cost slightly *more* (−5.8 %) due to low compressibility of config-heavy YAML content. Know your workload.
+- **Quality actually improves on average.** Across 55 tests, Token-Zip scored **7.6 / 10** vs direct's **7.3 / 10** — a slight *positive* delta. The compression step forces the model to be more concise and focused, which often helps.
+- **Average 50 % cost savings** across all 55 prompts. Non-technical content (humanities, law, science, healthcare) saves the most (57–66 %), while code-heavy content saves less (22–28 %) due to untranslatable syntax.
+- **Best for natural-language-heavy content.** Philosophy (66 %), history (65 %), law (60 %), education (60 %), healthcare (57 %), and science (56 %) all exceed 55 % savings.
+- **Honest about where it struggles.** Code-heavy DevOps/YAML content can cost slightly *more* (−4.6 %). Programming saves ~28 % on average — still meaningful but lower than prose-heavy domains.
 - **Compression cost is negligible.** Kimi K2.5 costs ~$0.55 / MTok (input) — roughly 1/9th of Claude Opus input pricing.
 
 ### Run It Yourself
 
 ```bash
 npm run dev &                              # start Token-Zip
-npx tsx run-benchmark.ts                   # run the full 12-case benchmark
-# or use the quick shell-based benchmark:
-bash benchmark.sh
+CONCURRENCY=3 npx tsx run-benchmark.ts     # run the full 55-case benchmark (~50 min)
 ```
 
-> **Note:** Savings depend on prompt length, content type, and model combination. The numbers above are real measurements from actual API calls, not theoretical estimates. Your results may vary.
+> **Note:** Savings depend on prompt length, content type, and model combination. All numbers above are real measurements from actual API calls, not theoretical estimates. Your results may vary.
 
 ## License
 
