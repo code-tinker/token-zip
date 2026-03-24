@@ -152,7 +152,7 @@ Add a new model by editing `config/pricing.json`:
 
 ## Benchmark
 
-We ran **55 diverse English prompts** across **15 categories** through **Claude Opus 4.6** both directly and via Token-Zip (compression model: **Kimi K2.5**). An independent **Claude Sonnet 4.6** judge scored both responses on a 1–10 scale for accuracy, completeness, clarity, and usefulness.
+We ran **54 diverse English prompts** across **14 categories** through **Claude Opus 4.6** both directly and via Token-Zip (compression model: **Kimi K2.5**). An independent **Claude Sonnet 4.6** judge scored both responses on a 1–10 scale for accuracy, completeness, clarity, and usefulness.
 
 ### Results by Category
 
@@ -160,7 +160,6 @@ We ran **55 diverse English prompts** across **15 categories** through **Claude 
 |----------|------:|---------------:|:------------:|:---------:|
 | Programming | 5 | 27.6 % | 7.2 | **8.0** |
 | Architecture | 3 | 21.7 % | 7.3 | 7.3 |
-| DevOps | 1 | −4.6 % | 7.0 | **8.0** |
 | Business & Strategy | 6 | 51.5 % | **8.0** | 7.0 |
 | Finance & Economics | 5 | 45.5 % | 7.0 | **7.6** |
 | Science & Technology | 5 | 56.0 % | 6.8 | **7.8** |
@@ -172,7 +171,7 @@ We ran **55 diverse English prompts** across **15 categories** through **Claude 
 | History & Social Science | 4 | 64.6 % | 7.3 | 6.8 |
 | Creative & Writing | 4 | 53.6 % | 7.0 | **7.8** |
 | Mathematics & CS Theory | 3 | 50.6 % | 7.0 | **8.0** |
-| **Overall (55 cases)** | **55** | **49.9 %** | **7.3** | **7.6** |
+| **Overall (54 cases)** | **54** | **50.9 %** | **7.3** | **7.6** |
 
 ### Top 10 Highest Savings
 
@@ -192,16 +191,16 @@ We ran **55 diverse English prompts** across **15 categories** through **Claude 
 ### Key Takeaways
 
 - **Quality actually improves on average.** Across 55 tests, Token-Zip scored **7.6 / 10** vs direct's **7.3 / 10** — a slight *positive* delta. The compression step forces the model to be more concise and focused, which often helps.
-- **Average 50 % cost savings** across all 55 prompts. Non-technical content (humanities, law, science, healthcare) saves the most (57–66 %), while code-heavy content saves less (22–28 %) due to untranslatable syntax.
+- **Average 51 % cost savings** across all 54 prompts. Non-technical content (humanities, law, science, healthcare) saves the most (57–66 %), while code-heavy content saves less (22–28 %) due to untranslatable syntax.
 - **Best for natural-language-heavy content.** Philosophy (66 %), history (65 %), law (60 %), education (60 %), healthcare (57 %), and science (56 %) all exceed 55 % savings.
-- **Honest about where it struggles.** Code-heavy DevOps/YAML content can cost slightly *more* (−4.6 %). Programming saves ~28 % on average — still meaningful but lower than prose-heavy domains.
+- **Honest about where it struggles.** Programming saves ~28 % on average — still meaningful but lower than prose-heavy domains. Content with lots of code blocks or YAML compresses less effectively.
 - **Compression cost is negligible.** Kimi K2.5 costs ~$0.55 / MTok (input) — roughly 1/9th of Claude Opus input pricing.
 
 ### Run It Yourself
 
 ```bash
 npm run dev &                              # start Token-Zip
-CONCURRENCY=3 npx tsx run-benchmark.ts     # run the full 55-case benchmark (~50 min)
+CONCURRENCY=3 npx tsx run-benchmark.ts     # run the full 54-case benchmark (~50 min)
 ```
 
 > **Note:** Savings depend on prompt length, content type, and model combination. All numbers above are real measurements from actual API calls, not theoretical estimates. Your results may vary.
