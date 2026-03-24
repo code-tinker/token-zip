@@ -2,6 +2,8 @@
 
 Cut your LLM API costs by **up to 53 %** — with **virtually no quality loss** — by compressing tokens through Classical Chinese (文言文).
 
+![Token-Zip Architecture](index.png)
+
 ## How It Works
 
 Classical Chinese can convey the same meaning as English using far fewer tokens. Token-Zip exploits this by translating your input into Classical Chinese before it reaches the expensive model, asking the model to respond in Classical Chinese as well, and then translating the response back to the original language.
