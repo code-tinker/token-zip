@@ -1,0 +1,228 @@
+{
+  "exchangeRates": {
+    "USD_CNY": 7.25
+  },
+  "models": {
+    "claude-opus-4.6": {
+      "displayName": "Claude Opus 4.6",
+      "provider": "anthropic",
+      "currency": "USD",
+      "inputPricePerMTok": 5.00,
+      "outputPricePerMTok": 25.00,
+      "cachedInputPricePerMTok": 0.50
+    },
+    "claude-opus-4-6": {
+      "displayName": "Claude Opus 4.6",
+      "provider": "anthropic",
+      "currency": "USD",
+      "inputPricePerMTok": 5.00,
+      "outputPricePerMTok": 25.00,
+      "cachedInputPricePerMTok": 0.50
+    },
+    "claude-sonnet-4-6": {
+      "displayName": "Claude Sonnet 4.6",
+      "provider": "anthropic",
+      "currency": "USD",
+      "inputPricePerMTok": 3.00,
+      "outputPricePerMTok": 15.00,
+      "cachedInputPricePerMTok": 0.30
+    },
+    "claude-opus-4.5": {
+      "displayName": "Claude Opus 4.5",
+      "provider": "anthropic",
+      "currency": "USD",
+      "inputPricePerMTok": 5.00,
+      "outputPricePerMTok": 25.00,
+      "cachedInputPricePerMTok": 0.50
+    },
+    "claude-sonnet-4.5": {
+      "displayName": "Claude Sonnet 4.5",
+      "provider": "anthropic",
+      "currency": "USD",
+      "inputPricePerMTok": 3.00,
+      "outputPricePerMTok": 15.00,
+      "cachedInputPricePerMTok": 0.30
+    },
+    "claude-sonnet-4": {
+      "displayName": "Claude Sonnet 4",
+      "provider": "anthropic",
+      "currency": "USD",
+      "inputPricePerMTok": 3.00,
+      "outputPricePerMTok": 15.00,
+      "cachedInputPricePerMTok": 0.30
+    },
+    "claude-haiku-3.5": {
+      "displayName": "Claude Haiku 3.5",
+      "provider": "anthropic",
+      "currency": "USD",
+      "inputPricePerMTok": 0.80,
+      "outputPricePerMTok": 4.00,
+      "cachedInputPricePerMTok": 0.08
+    },
+    "gpt-5": {
+      "displayName": "GPT-5",
+      "provider": "openai",
+      "currency": "USD",
+      "inputPricePerMTok": 1.25,
+      "outputPricePerMTok": 10.00
+    },
+    "gpt-5-pro": {
+      "displayName": "GPT-5 Pro",
+      "provider": "openai",
+      "currency": "USD",
+      "inputPricePerMTok": 15.00,
+      "outputPricePerMTok": 120.00
+    },
+    "gpt-5-nano": {
+      "displayName": "GPT-5 Nano",
+      "provider": "openai",
+      "currency": "USD",
+      "inputPricePerMTok": 0.05,
+      "outputPricePerMTok": 0.40
+    },
+    "gpt-4.1": {
+      "displayName": "GPT-4.1",
+      "provider": "openai",
+      "currency": "USD",
+      "inputPricePerMTok": 2.00,
+      "outputPricePerMTok": 8.00
+    },
+    "gpt-4.1-mini": {
+      "displayName": "GPT-4.1 Mini",
+      "provider": "openai",
+      "currency": "USD",
+      "inputPricePerMTok": 0.40,
+      "outputPricePerMTok": 1.60
+    },
+    "gpt-4.1-nano": {
+      "displayName": "GPT-4.1 Nano",
+      "provider": "openai",
+      "currency": "USD",
+      "inputPricePerMTok": 0.10,
+      "outputPricePerMTok": 0.40
+    },
+    "o3-pro": {
+      "displayName": "o3 Pro",
+      "provider": "openai",
+      "currency": "USD",
+      "inputPricePerMTok": 20.00,
+      "outputPricePerMTok": 80.00
+    },
+    "o4-mini": {
+      "displayName": "o4 Mini",
+      "provider": "openai",
+      "currency": "USD",
+      "inputPricePerMTok": 1.10,
+      "outputPricePerMTok": 4.40
+    },
+    "gemini-2.5-pro": {
+      "displayName": "Gemini 2.5 Pro",
+      "provider": "google",
+      "currency": "USD",
+      "inputPricePerMTok": 1.25,
+      "outputPricePerMTok": 10.00
+    },
+    "gemini-2.5-flash": {
+      "displayName": "Gemini 2.5 Flash",
+      "provider": "google",
+      "currency": "USD",
+      "inputPricePerMTok": 0.15,
+      "outputPricePerMTok": 0.60
+    },
+    "gemini-2.5-flash-lite": {
+      "displayName": "Gemini 2.5 Flash Lite",
+      "provider": "google",
+      "currency": "USD",
+      "inputPricePerMTok": 0.10,
+      "outputPricePerMTok": 0.40
+    },
+    "grok-4": {
+      "displayName": "Grok 4",
+      "provider": "xai",
+      "currency": "USD",
+      "inputPricePerMTok": 3.00,
+      "outputPricePerMTok": 15.00
+    },
+    "kimi-k2.5": {
+      "displayName": "Kimi K2.5",
+      "provider": "moonshot",
+      "currency": "CNY",
+      "inputPricePerMTok": 4.00,
+      "outputPricePerMTok": 21.00,
+      "cachedInputPricePerMTok": 0.70
+    },
+    "deepseek-chat": {
+      "displayName": "DeepSeek V3",
+      "provider": "deepseek",
+      "currency": "CNY",
+      "inputPricePerMTok": 2.00,
+      "outputPricePerMTok": 8.00,
+      "cachedInputPricePerMTok": 0.50
+    },
+    "deepseek-reasoner": {
+      "displayName": "DeepSeek R1",
+      "provider": "deepseek",
+      "currency": "CNY",
+      "inputPricePerMTok": 4.00,
+      "outputPricePerMTok": 16.00,
+      "cachedInputPricePerMTok": 1.00
+    },
+    "qwen-max": {
+      "displayName": "Qwen Max",
+      "provider": "alibaba",
+      "currency": "CNY",
+      "inputPricePerMTok": 4.00,
+      "outputPricePerMTok": 12.00
+    },
+    "qwen-plus": {
+      "displayName": "Qwen Plus",
+      "provider": "alibaba",
+      "currency": "CNY",
+      "inputPricePerMTok": 0.80,
+      "outputPricePerMTok": 2.00
+    },
+    "qwen-turbo": {
+      "displayName": "Qwen Turbo",
+      "provider": "alibaba",
+      "currency": "CNY",
+      "inputPricePerMTok": 0.30,
+      "outputPricePerMTok": 0.60
+    },
+    "qwen3.5-flash": {
+      "displayName": "Qwen 3.5 Flash",
+      "provider": "alibaba",
+      "currency": "CNY",
+      "inputPricePerMTok": 0.30,
+      "outputPricePerMTok": 0.60
+    },
+    "qwen3.5-plus": {
+      "displayName": "Qwen 3.5 Plus",
+      "provider": "alibaba",
+      "currency": "CNY",
+      "inputPricePerMTok": 0.80,
+      "outputPricePerMTok": 2.00
+    },
+    "deepseek-v3.2": {
+      "displayName": "DeepSeek V3.2",
+      "provider": "deepseek",
+      "currency": "CNY",
+      "inputPricePerMTok": 2.00,
+      "outputPricePerMTok": 8.00,
+      "cachedInputPricePerMTok": 0.50
+    },
+    "glm-4-plus": {
+      "displayName": "GLM-4 Plus",
+      "provider": "zhipu",
+      "currency": "CNY",
+      "inputPricePerMTok": 5.00,
+      "outputPricePerMTok": 5.00
+    },
+    "doubao-pro-256k": {
+      "displayName": "Doubao Pro 256k",
+      "provider": "bytedance",
+      "currency": "CNY",
+      "inputPricePerMTok": 5.00,
+      "outputPricePerMTok": 9.00
+    }
+  }
+}
