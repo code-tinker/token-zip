@@ -1,6 +1,6 @@
 # Token-Zip 🗜️
 
-Cut your LLM API costs by **up to 72 %** — with **virtually no quality loss in most scenarios** — by compressing tokens through Classical Chinese (文言文).
+Cut your LLM API costs by **~50 % on average (up to 72 %)** — with **virtually no quality loss in most scenarios** — by compressing tokens through Classical Chinese (文言文).
 
 ![Token-Zip Architecture](index.png)
 
