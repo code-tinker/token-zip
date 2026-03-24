@@ -1,6 +1,6 @@
 # Token-Zip 🗜️
 
-Cut your LLM API costs by **up to 48 %** — with **zero quality loss** — by compressing tokens through Classical Chinese (文言文).
+Cut your LLM API costs by **up to 48 %** — with **minimal quality loss** — by compressing tokens through Classical Chinese (文言文).
 
 ## How It Works
 
@@ -165,9 +165,9 @@ We ran 5 diverse English prompts through **Claude Opus 4.6** both directly and v
 
 ### Key Takeaways
 
-- **Quality is preserved.** Average quality scores are identical (7.8 / 10) between direct calls and Token-Zip. In 2 out of 5 cases the Token-Zip response was actually rated *higher* by the judge — likely because the compression step forces the model to be more concise and focused.
+- **Minimal quality impact.** Average quality scores are nearly identical (7.8 / 10 for both direct and Token-Zip). In 2 out of 5 cases the Token-Zip response was actually rated *higher* by the judge — likely because the compression step forces the model to be more concise and focused.
 - **Best for technical / algorithmic content.** The highest savings (48 %) were observed on algorithm-heavy prompts where Classical Chinese excels at compact expression.
-- **Worst case is still a net positive.** Even the least-compressed case (Debugging Assistance) saved 4.7 % with no quality degradation.
+- **Worst case is still a net positive.** Even the least-compressed case (Debugging Assistance) saved 4.7 % with negligible quality difference.
 - **Compression cost is negligible.** Kimi K2.5 costs ~$0.55 / MTok (input) — roughly 1/9th of Claude Opus input pricing — so the overhead is minimal.
 
 ### Run It Yourself
