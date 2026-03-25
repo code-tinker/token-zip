@@ -205,6 +205,16 @@ CONCURRENCY=3 npx tsx run-benchmark.ts     # run the full 54-case benchmark (~50
 
 > **Note:** Savings depend on prompt length, content type, and model combination. All numbers above are real measurements from actual API calls, not theoretical estimates. Your results may vary.
 
+## Security
+
+To report a security vulnerability, **do not open a public GitHub Issue**. Please email us at:
+
+**[it-security@yingmi.cn](mailto:it-security@yingmi.cn)**
+
+See [SECURITY.md](SECURITY.md) for our full security policy and response timeline.
+
 ## License
 
-MIT
+This project is licensed under the **MIT License** — see [LICENSE.txt](LICENSE.txt) for the full text.
+
+Copyright (c) 2026 code-tinker
