@@ -217,4 +217,4 @@ See [SECURITY.md](SECURITY.md) for our full security policy and response timelin
 
 This project is licensed under the **MIT License** — see [LICENSE.txt](LICENSE.txt) for the full text.
 
-Copyright (c) 2026 Yingmi Inc.
+Copyright (c) 2026 Yingmi Inc. (https://www.yingmi.cn)
